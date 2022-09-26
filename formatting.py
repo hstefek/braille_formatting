@@ -1,8 +1,10 @@
 import AlgoritamSyllCro.slog2 as rastavi
+import time, os
 
 def format_text(text_file, length):
 
-    formatted_text = open('formatted_text_file.txt', 'w')
+    t = time.strftime('%Y%m%d%H%M', time.localtime())
+    formatted_text = open('data/' + os.path.splitext(text_file)[0] + '_formatted_' + t + '.txt', 'w', encoding='utf8')
 
     def ispisi_sto_je_ostalo(counter):
         formatted_text.write(word)
@@ -14,7 +16,7 @@ def format_text(text_file, length):
             counter = 0
         return (counter)
 
-    with open(text_file, 'r') as file:
+    with open(text_file, 'r', encoding='utf8') as file:
         for line in file:
             counter = 0
             for word in line.split():
@@ -38,5 +40,6 @@ def format_text(text_file, length):
                         counter = ispisi_sto_je_ostalo(counter)
             formatted_text.write('\n')
     formatted_text.close()
+    print("Formatirana datoteka: " + os.path.splitext(text_file)[0] + "_formatted_" + t +".txt\n")
 
 #format_text('lorem.txt', 30)
