@@ -1,5 +1,6 @@
 import AlgoritamSyllCro.slog2 as rastavi
 import time, os
+from add_word_to_dict import adapt_letters, veliko_malo_slovo
 
 def format_text(text_file, length):
 
@@ -23,7 +24,10 @@ def format_text(text_file, length):
                 if len(word) + counter < length:
                     counter = ispisi_sto_je_ostalo(counter)
                 else:
-                    rastav = list(*map(rastavi.rastavinaslogove, word.split()))
+                    temp_x = adapt_letters(word)
+                    rastav = list(*map(rastavi.rastavinaslogove, temp_x.split()))
+                    rastav = veliko_malo_slovo(word, '-'.join(map(str, rastav))).split('-')
+                    #rastav = list(*map(rastavi.rastavinaslogove, word.split()))
                     word = rastav[0]
                     if len(word) + counter > length - 1:
                         word = ''.join(map(str, rastav))
