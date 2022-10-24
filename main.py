@@ -4,15 +4,13 @@ def select1(wordDict, syllableDict):
     try:
         while True:
             x = input("Unesi ime tekstualne datoteke: \n")
-            y = input("Unesi broj znakova u retku (obično 30 ili 38): \n")
-            if y == '30' or y == '38':
-                try:
-                    formatting.format_text(str(x), int(y))
-                    break
-                except:
-                    print("Nepostojeća datoteka.\n")
-            else:
-                print("Krivi format.\n")
+            try:
+                text = open(x)
+                text.close()
+                y = input("Unesi broj znakova u retku (obično 30 ili 38): \n")
+                formatting.format_text(str(x), int(y))
+            except FileNotFoundError:
+                print("Datoteka ne postoji.")
     except KeyboardInterrupt:
         print("\n\n")
         pass
@@ -27,8 +25,8 @@ def select3(wordDict, syllableDict):
     main(wordDict, syllableDict)
 
 def select4(wordDict, syllableDict):
-    x = input("Potvrdi resetiranje baze? y/n ")
-    if x == 'y':
+    x = input("Potvrdi resetiranje baze? d/n ")
+    if x == 'd':
         syllable_dictionary_creator.reset_dictionary()
         wordDict, syllableDict = ucitaj_bazu()
         print("Baza podataka resetirana!\n")
@@ -37,7 +35,7 @@ def select4(wordDict, syllableDict):
 def main(wordDict, syllableDict):
     while True:
         print("----------------------\n")
-        select = input("1 - Formatiraj tekst\n2 - Provjeri riječ\n3 - Statistika\n\t1 - Broj riječi u bazi\n\t2 - Broj slogova u bazi\n\t3 - Učestalost sloga\n\t\t1 - Učestalost određenog sloga\n\t\t2 - Rang lista slogova\n\t\t3 - Detaljna statistika određenog sloga\n\t4 - Ispis novih rastava\n\t5 - Ispis korigiranih slogova\n4 - Resetiraj bazu podataka\n5 - Zatvori\n")
+        select = input("1 - Formatiraj tekst\n2 - Provjeri riječ\n3 - Statistika\n\t1 - Broj riječi u bazi\n\t2 - Broj slogova u bazi\n\t3 - Učestalost sloga\n\t\t1 - Učestalost određenog sloga\n\t\t2 - Rang lista slogova\n\t4 - Ispis novih rastava\n\t5 - Ispis korigiranih slogova\n4 - Resetiraj bazu podataka\n5 - Zatvori\n")
         if select == "1":
             select1(wordDict, syllableDict)
         elif select == "2":

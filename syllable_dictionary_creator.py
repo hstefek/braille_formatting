@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import logging, sys, csv
 import AlgoritamSyllCro.slog2 as rastavi
+from add_word_to_dict import veliko_malo_slovo, adapt_letters
 
 
 # Function for importing dictinary from file
@@ -17,6 +18,9 @@ def importDict(filename, braille):
                 braille[key] = value
     return (braille)
 
+##braille = {}
+##braille = importDict('braille.csv', braille)
+##missing = []
 
 def translate2braille(strg):
     strg = strg.lower()
@@ -86,12 +90,14 @@ def reset_dictionary():
             key = line.split(None, 1)[0]
 
             # KEY is the word, VALUE is the same word translated to braille
-            # value = translate2braille(key)
+            #value = translate2braille(key)
             # braille[key] = value
 
             # RASTAV is list of syllables taken from KEY
-            rastav = list(*map(rastavi.rastavinaslogove, key.split()))
-            w.writerow([key, '-'.join(map(str, rastav)), 0, 0])
+            temp_key = adapt_letters(key)
+            rastav = list(*map(rastavi.rastavinaslogove, temp_key.split()))
+            temp = veliko_malo_slovo(key, '-'.join(map(str, rastav)))
+            w.writerow([key, temp, 0, 0])
             # file.write(key + ',' + ','.join(map(str, rastav)) + '\n')
 
             # add new syllables to the syllables dictionary, if syllable exists increment its frequency
@@ -111,3 +117,4 @@ def reset_dictionary():
     for syllable in sorted(syllableDict.keys()):
         # freq.write(syllable + ' - ' + syllableDict[syllable][0] + ' - ' + str(syllableDict[syllable][1]) + '\n')
         freq.writerow([syllable, syllableDict[syllable]])
+
